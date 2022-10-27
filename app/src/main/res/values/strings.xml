@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">JokeApi</string>
+    <string name="reload">reload</string>
+    <string name="couldnt_fetch_details">Couldn\'t fetch the details</string>
+    <string name="no_internet_message">No internet connectivity.\nPlease check your internet connection &amp; retry again.</string>
+    <string name="retry">Retry</string>
+    <string name="server_error_message">Something seems broken.\nWe are working to fix this.</string>
+    <string name="jokes">Jokes</string>
+</resources>
