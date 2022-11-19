@@ -25,7 +25,7 @@ class MoviesActivity: AppCompatActivity(), MoviesAdapter.MovieClicked, BottomShe
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportActionBar?.title = getString(R.string.jokes)
+        supportActionBar?.title = getString(R.string.movies)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setUpUI()
