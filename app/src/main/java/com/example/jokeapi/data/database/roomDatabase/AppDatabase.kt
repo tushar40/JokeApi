@@ -6,8 +6,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.jokeapi.BuildConfig
 import com.example.jokeapi.MainApplication
-import com.example.jokeapi.data.database.roomDatabase.dao.JokesDao
-import com.example.jokeapi.data.model.JokeDTO
+import com.example.jokeapi.data.database.roomDatabase.dao.MoviesDao
+import com.example.jokeapi.data.model.MovieDTO
 
 /**
  * The Room database for this app
@@ -15,14 +15,14 @@ import com.example.jokeapi.data.model.JokeDTO
 const val DATABASE_NAME = "app-db"
 
 @Database(
-        entities = [JokeDTO::class],
+        entities = [MovieDTO::class],
         version = BuildConfig.VERSION_CODE,
         exportSchema = false
 )
 
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun jokesDao(): JokesDao
+    abstract fun moviesDao(): MoviesDao
 
     companion object {
 

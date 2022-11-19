@@ -9,17 +9,18 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jokeapi.R
 import com.example.jokeapi.databinding.ActivityMainBinding
-import com.example.jokeapi.domain.model.Joke
-import com.example.jokeapi.presentation.screens.adapters.JokesAdapter
+import com.example.jokeapi.domain.model.Movie
+import com.example.jokeapi.presentation.screens.adapters.MoviesAdapter
 import com.example.jokeapi.presentation.model.UiState
+import com.example.jokeapi.presentation.screens.fragments.BottomSheetPlaylist
 import com.example.jokeapi.utils.getStringResource
-import com.example.jokeapi.presentation.viewmodel.JokeViewModel
+import com.example.jokeapi.presentation.viewmodel.MovieViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class JokesActivity: AppCompatActivity() {
-    private val jokeViewModel: JokeViewModel by viewModels()
-    private val pullRequestAdapter by lazy { JokesAdapter() }
+class MoviesActivity: AppCompatActivity(), MoviesAdapter.MovieClicked, BottomSheetPlaylist.AddClicked {
+    private val movieViewModel: MovieViewModel by viewModels()
+    private val pullRequestAdapter by lazy { MoviesAdapter(this) }
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,10 +29,10 @@ class JokesActivity: AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setUpUI()
-        jokeViewModel.getUiStates().observe(this) { uiState ->
+        movieViewModel.getUiStates().observe(this) { uiState ->
             showCurrentUiState(uiState)
         }
-        jokeViewModel.startFetchingJokes()
+        movieViewModel.startFetchingMovies()
     }
 
     private fun setUpUI() {
@@ -43,7 +44,7 @@ class JokesActivity: AppCompatActivity() {
         }
     }
 
-    private fun showJokes(questions: List<Joke>) {
+    private fun showJokes(questions: List<Movie>) {
         showList()
         pullRequestAdapter.submitList(questions)
     }
@@ -54,7 +55,7 @@ class JokesActivity: AppCompatActivity() {
                 if (uiState.data == null) {
                     Toast.makeText(applicationContext, getString(R.string.couldnt_fetch_details), Toast.LENGTH_SHORT).show()
                 } else {
-                    showJokes(uiState.data as List<Joke>)
+                    showJokes(uiState.data as List<Movie>)
                 }
             }
             is UiState.Progress -> showLoading()
@@ -86,5 +87,13 @@ class JokesActivity: AppCompatActivity() {
         with(binding) {
             loadingView.isVisible = false
         }
+    }
+
+    override fun onStarClicked(movie: Movie) {
+        BottomSheetPlaylist(movie).show(supportFragmentManager, "")
+    }
+
+    override fun onAddPlaylistClicked() {
+        // TODO: open Add Playlist Dialog
     }
 }

@@ -16,7 +16,7 @@
         android:theme="@style/Theme.JokeApi"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.screens.activities.JokesActivity"
+            android:name=".presentation.screens.activities.MoviesActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

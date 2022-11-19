@@ -1,11 +1,12 @@
 package com.example.jokeapi.domain.di
 
-import com.example.jokeapi.data.database.roomDatabase.dao.JokesDao
+import com.example.jokeapi.data.database.roomDatabase.dao.MoviesDao
 import com.example.jokeapi.data.network.APIInterface
-import com.example.jokeapi.data.repository.JokeRepositoryImpl
-import com.example.jokeapi.domain.repository.JokeRepository
-import com.example.jokeapi.domain.useCase.GetJokesUseCase
-import com.example.jokeapi.domain.useCase.StartFetchingJokesUseCase
+import com.example.jokeapi.data.repository.MovieRepositoryImpl
+import com.example.jokeapi.domain.repository.MovieRepository
+import com.example.jokeapi.domain.useCase.GetMoviesUseCase
+import com.example.jokeapi.domain.useCase.StartFetchingMoviesUseCase
+import com.example.jokeapi.domain.useCase.UpdatePlaylistUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,17 +16,22 @@ import dagger.hilt.components.SingletonComponent
 @Module
 object DomainModule {
     @Provides
-    fun provideJokeRepository(apiInterface: APIInterface, jokesDao: JokesDao): JokeRepository {
-        return JokeRepositoryImpl(apiInterface, jokesDao)
+    fun provideMovieRepository(apiInterface: APIInterface, jokesDao: MoviesDao): MovieRepository {
+        return MovieRepositoryImpl(apiInterface, jokesDao)
     }
 
     @Provides
-    fun provideGetJokesUseCase(jokeRepository: JokeRepository): GetJokesUseCase {
-        return GetJokesUseCase(jokeRepository)
+    fun provideGetJokesUseCase(movieRepository: MovieRepository): GetMoviesUseCase {
+        return GetMoviesUseCase(movieRepository)
     }
 
     @Provides
-    fun provideStartFetchingJokesUseCase(jokeRepository: JokeRepository): StartFetchingJokesUseCase {
-        return StartFetchingJokesUseCase(jokeRepository)
+    fun provideStartFetchingMoviesUseCase(movieRepository: MovieRepository): StartFetchingMoviesUseCase {
+        return StartFetchingMoviesUseCase(movieRepository)
+    }
+
+    @Provides
+    fun provideUpdatePlaylistUseCase(movieRepository: MovieRepository): UpdatePlaylistUseCase {
+        return UpdatePlaylistUseCase(movieRepository)
     }
 }
